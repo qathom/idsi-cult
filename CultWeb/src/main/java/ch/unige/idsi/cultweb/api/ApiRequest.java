@@ -1,4 +1,4 @@
-package ch.unige.idsi.cultweb;
+package ch.unige.idsi.cultweb.api;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -23,7 +23,7 @@ public class ApiRequest {
 	
 	private HashMap<Long, ArrayList<JSONArray>> moreInfo;
 	
-	ApiRequest() {
+	public ApiRequest() {
 		
 		moreInfo = new HashMap<Long, ArrayList<JSONArray>>();
 		

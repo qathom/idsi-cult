@@ -3,6 +3,7 @@ package ch.unige.idsi.cultweb;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import ch.unige.idsi.cultweb.api.ApiRequest;
 import ch.unige.idsi.cultweb.model.Museum;
 
 import org.json.simple.JSONArray;

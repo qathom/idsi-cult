@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import ch.unige.idsi.cultweb.api.ApiRequest;
 import ch.unige.idsi.cultweb.model.Place.Infrastructure;
 
 @Controller

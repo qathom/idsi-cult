@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import ch.unige.idsi.cultweb.api.ApiRequest;
 import ch.unige.idsi.cultweb.model.Feed;
 import ch.unige.idsi.cultweb.model.FeedMessage;
 import ch.unige.idsi.cultweb.model.Museum;
