@@ -49,65 +49,36 @@ public class InfoController {
 
 			JSONObject res = req.getInfo(id, infra);
 			
-			model.addAttribute("id", id);
-			model.addAttribute("name", (String) res.get("NOM"));
-
-			model.addAttribute("contact", (String) res.get("CONTACT"));
-			model.addAttribute("officialsite", (String) res.get("LIEN_WWW"));
-			model.addAttribute("address", (String) res.get("ADRESSE"));
-			model.addAttribute("town", (String) res.get("COMMUNE"));
-
-			model.addAttribute("latitude", (double) res.get("latitude"));
-			model.addAttribute("longitude", (double) res.get("longitude"));
-
 			System.out.println("!!");
 			System.out.println(res.toString());
-
-			List<String> list = new ArrayList<String>();
-			JSONArray links = (JSONArray) res.get("links");
-
-			if (links != null) {
-				for (int i = 0; i < links.size(); i++) {
-					list.add((String) links.get(i));
+			
+			if(!res.toString().equals("{}")) {
+			
+				model.addAttribute("id", id);
+				model.addAttribute("name", (String) res.get("NOM"));
+	
+				model.addAttribute("contact", (String) res.get("CONTACT"));
+				model.addAttribute("officialsite", (String) res.get("LIEN_WWW"));
+				model.addAttribute("address", (String) res.get("ADRESSE"));
+				model.addAttribute("town", (String) res.get("COMMUNE"));
+	
+				model.addAttribute("latitude", (double) res.get("latitude"));
+				model.addAttribute("longitude", (double) res.get("longitude"));
+	
+				List<String> list = new ArrayList<String>();
+				JSONArray links = (JSONArray) res.get("links");
+	
+				if (links != null) {
+					for (int i = 0; i < links.size(); i++) {
+						list.add((String) links.get(i));
+					}
 				}
+	
+				model.addAttribute("links", list);
+	
+				return "info";
 			}
-
-			model.addAttribute("links", list);
-
-			/*
-			 * try {
-			 * 
-			 * String url = (String) res.get("LIEN_WWW"); Document doc =
-			 * Jsoup.connect(url).get(); Elements links =
-			 * doc.select("link[type=application/rss+xml]");
-			 * 
-			 * System.out.println("WWWW: " + url);
-			 * System.out.println(doc.toString());
-			 * 
-			 * if (links.size() > 0) {
-			 * 
-			 * String rssUrl = links.get(0).attr("abs:href").toString();
-			 * 
-			 * System.out.println("RSS URL FOUND: " + rssUrl);
-			 * 
-			 * RSSFeedParser parser = new RSSFeedParser(rssUrl); Feed feed =
-			 * parser.readFeed(); System.out.println(feed); for (FeedMessage
-			 * message : feed.getMessages()) { System.out.println("!! " +
-			 * message);
-			 * 
-			 * }
-			 * 
-			 * } else { // RSS url not found
-			 * System.out.println("RSS NOT FOUND"); } } catch(IOException e) {
-			 * 
-			 * }
-			 */
-
-			return "info";
-
-		} else {
-
-			return "erreur!";
 		}
+		return "404";
 	}
 }
