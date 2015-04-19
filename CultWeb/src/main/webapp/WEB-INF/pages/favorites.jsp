@@ -55,7 +55,7 @@
 					
 					var fav = userFavorites[i];
 					
-					var li = $('<li class="collection-item"><div><a href="#">'+fav.name+'</a><a href="../" class="secondary-content" data-id="'+fav.id+'"><i class="mdi-action-delete small"></i></a></div></li>');
+					var li = $('<li class="collection-item"><div><a href="info/'+fav.type.toLowerCase()+'/'+fav.id+'">'+fav.name+'</a><a href="../" class="secondary-content" data-id="'+fav.id+'"><i class="mdi-action-delete small"></i></a></div></li>');
 					listFavorites.append(li);
 				}
 				

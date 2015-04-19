@@ -110,6 +110,7 @@
 			    
 			    var id = "${id}";
 			    var name = "${name}";
+			    var infrastructureType = "${infrastructure}";
 			    
 			    var favState = $('.toggle-favorite');
 			    
@@ -128,7 +129,7 @@
 			    		
 			    	} else {
 			    		
-			    		favorites.addFavorite(id, name);
+			    		favorites.addFavorite(id, name, infrastructureType);
 						
 			    		favState.addClass('mdi-toggle-check-box');
 			    		favState.removeClass('mdi-toggle-check-box-outline-blank');

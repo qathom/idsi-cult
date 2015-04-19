@@ -56,7 +56,8 @@ public class InfoController {
 			
 				model.addAttribute("id", id);
 				model.addAttribute("name", (String) res.get("NOM"));
-	
+				
+				model.addAttribute("infrastructure", infra.toString());
 				model.addAttribute("contact", (String) res.get("CONTACT"));
 				model.addAttribute("officialsite", (String) res.get("LIEN_WWW"));
 				model.addAttribute("address", (String) res.get("ADRESSE"));

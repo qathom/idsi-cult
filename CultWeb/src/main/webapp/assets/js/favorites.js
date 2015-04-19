@@ -5,11 +5,13 @@
 'use strict';
 
 var Favorites = (function () {
-
+	
 	/**
      * @constructor
     */
 	function Favorites() {
+		
+		this.dbName = 'cultweb_favorites';
 		
 		var data = this.getFavorites();
 
@@ -19,9 +21,9 @@ var Favorites = (function () {
 		}
 	}
 
-	Favorites.prototype.addFavorite = function (id, name) {
+	Favorites.prototype.addFavorite = function (id, name, type) {
 		var data = this.getFavorites();
-		data.push( { id: id, name: name } );
+		data.push( { id: id, name: name, type: type } );
 		this.save(data);
 	};
 
@@ -59,11 +61,11 @@ var Favorites = (function () {
 	};
 	
 	Favorites.prototype.getFavorites = function () {
-		return JSON.parse(window.localStorage.getItem('cultweb_favorites'));
+		return JSON.parse(window.localStorage.getItem(this.dbName));
 	};
 	
 	Favorites.prototype.save = function (data) {
-		window.localStorage.setItem('cultweb_favorites', JSON.stringify(data));
+		window.localStorage.setItem(this.dbName, JSON.stringify(data));
 	};
 
 	return Favorites;
