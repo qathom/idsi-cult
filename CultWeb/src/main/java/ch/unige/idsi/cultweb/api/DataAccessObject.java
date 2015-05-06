@@ -32,8 +32,11 @@ public class DataAccessObject {
 			DataRequest req = new DataRequest();
 	
 			JSONArray array = req.getMuseums();
-	
-			for (int i = 0; i < array.size(); i++) {
+			
+			int i = 0;
+			int size = array.size();
+			
+			for (; i < size; i++) {
 	
 				JSONObject obj = (JSONObject) array.get(i);
 				JSONObject attributes = (JSONObject) obj.get("attributes");
@@ -110,9 +113,10 @@ public class DataAccessObject {
 	
 			JSONArray array = req.getCinemas();
 			
+			int i = 0;
 			int size = array.size();
 			
-			for (int i = 0; i < size; i++) {
+			for (; i < size; i++) {
 	
 				JSONObject obj = (JSONObject) array.get(i);
 				JSONObject attributes = (JSONObject) obj.get("attributes");
