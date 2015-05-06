@@ -23,7 +23,7 @@
 			   <div class="nav-wrapper">
 			     <a href="#" class="brand-logo center">Mes Favoris</a>
 			     <ul id="nav-mobile" class="left hide-on-med-and-down">
-			       <li><a href="../">Retour</a></li>
+			       <li><a href="<c:url value="/" />">Retour</a></li>
 			     </ul>
 			   </div>
 			 </nav>
@@ -55,7 +55,7 @@
 					
 					var fav = userFavorites[i];
 					
-					var li = $('<li class="collection-item"><div><a href="info/'+fav.type.toLowerCase()+'/'+fav.id+'">'+fav.name+'</a><a href="../" class="secondary-content" data-id="'+fav.id+'"><i class="mdi-action-delete small"></i></a></div></li>');
+					var li = $('<li class="collection-item"><div><a href="../info/'+fav.type.toLowerCase()+'/'+fav.id+'">'+fav.name+'</a><a href="../" class="secondary-content" data-id="'+fav.id+'"><i class="mdi-action-delete small"></i></a></div></li>');
 					listFavorites.append(li);
 				}
 				

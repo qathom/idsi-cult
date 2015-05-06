@@ -41,13 +41,6 @@
 		      </div>
 		    </li>
 		    <li>
-		      <img src="<c:url value="/assets/img/musee-ariana.jpg" />"> <!-- random image -->
-		      <div class="caption left-align">
-		        <h3>Musées</h3>
-		        <h5 class="light grey-text text-lighten-3">Plus de 20 musées sont disponibles.</h5>
-		      </div>
-		    </li>
-		    <li>
 		      <img src="<c:url value="/assets/img/device.jpg" />"> <!-- random image -->
 		      <div class="caption right-align">
 		        <h3>CultWeb sur votre mobile</h3>

@@ -23,7 +23,7 @@
 			   <div class="nav-wrapper">
 			     <a href="#" class="brand-logo center">CultWeb</a>
 			     <ul id="nav-mobile" class="left hide-on-med-and-down">
-			       <li><a href="../../">Retour</a></li>
+			       <li><a href="<c:url value="/" />">Retour</a></li>
 			     </ul>
 			   </div>
 			 </nav>
@@ -32,11 +32,11 @@
 		<article class="container">
 		
 			<ul class="collection with-header">
-				<li class="collection-header name-header"><h4>${name}</h4><i class="medium toggle-favorite"></i></li>
-				<li class="collection-item">${contact}</li>
-				<li class="collection-item"><a href="${officialsite}" title="Aller sur ${officialsite}" target="_blank">${officialsite}</a></li>
-				<li class="collection-item">${address}</li>
-				<li class="collection-item">${town}</li>
+				<li class="collection-header name-header"><h4>${museum.name}</h4><i class="medium toggle-favorite"></i></li>
+				<li class="collection-item">${museum.contact}</li>
+				<li class="collection-item"><a href="${museum.url}" title="Aller sur ${museum.url}" target="_blank">${museum.url}</a></li>
+				<li class="collection-item">${museum.address}</li>
+				<li class="collection-item">${museum.town}</li>
 			</ul>
 			
 			<div class="row">
@@ -50,11 +50,10 @@
 					
 					<c:choose>
 						
-						<c:when test="${not empty links}">
+						<c:when test="${not empty museum.recommendations}">
 							<ul>
-							<c:forEach var="link" items="${links}" varStatus="i" begin="0">
-								
-								<li>${link}</li>
+							<c:forEach var="recommendation" items="${museum.recommendations}" varStatus="i" begin="0">
+								<li><a href="${recommendation.url}" target="_blank">${recommendation.name}</a></li>
 							</c:forEach>
 							</ul>
 						</c:when>
@@ -78,39 +77,28 @@
 				
 			$(document).ready(function() {
 			
-			    var geocoder = new google.maps.Geocoder();
-			    var address = "boulevard Carl-VOGT 65";
-			    geocoder.geocode( { 'address': address}, function(results, status) {
-					if (status == google.maps.GeocoderStatus.OK) {
-			    	
-						var latitude = results[0].geometry.location.lat();
-						var longitude = results[0].geometry.location.lng();
-			    	  
-						var map = new GMaps({
-						    el: '#map',
-						    lat: latitude,
-						    lng: longitude
-						});
-						
-						map.addMarker({
-							lat: latitude,
-							lng: longitude,
-							title: "${name}"
-						});
-			      } 
-		
-			      else {
-			        alert("La map ne peut pas être affichée.");
-			      }
-			    });
+				var latitude = "${museum.latitude}";
+				var longitude = "${museum.longitude}";
+	    	  
+				var map = new GMaps({
+				    el: '#map',
+				    lat: latitude,
+				    lng: longitude
+				});
+				
+				map.addMarker({
+					lat: latitude,
+					lng: longitude,
+					title: "${museum.name}"
+				});
 			    
 			    /*
 			     * Favorites
 			    */
 			    
-			    var id = "${id}";
-			    var name = "${name}";
-			    var infrastructureType = "${infrastructure}";
+			    var id = "${museum.id}";
+			    var name = "${museum.name}";
+			    var infrastructureType = "${museum.infrastructure}";
 			    
 			    var favState = $('.toggle-favorite');
 			    

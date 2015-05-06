@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class FavoritesController {
 
 	@RequestMapping(method = RequestMethod.GET)
-	public String printWelcome(ModelMap model) throws IOException {
+	public String printFavorites(ModelMap model) throws IOException {
 		return "favorites";
 	}
 }

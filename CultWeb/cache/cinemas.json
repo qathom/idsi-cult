@@ -1,0 +1,332 @@
+{
+  "displayFieldName" : "NOM",
+  "fieldAliases" : {
+    "ID_INFRASTRUCTURE" : "No INFRASTRUCTURE",
+    "NO_COMMUNE" : "No COMMUNE",
+    "COMMUNE" : "COMMUNE",
+    "ADRESSE" : "ADRESSE",
+    "TYPE" : "TYPE",
+    "NOM" : "NOM",
+    "CAPACITE" : "CAPACITE",
+    "CONTACT" : "CONTACT",
+    "PROPRIETAIRE" : "PROPRIETAIRE",
+    "IDPADR" : "IDPADR",
+    "LIEN_WWW" : "LIEN_WWW",
+    "REMARQUES" : "REMARQUES",
+    "OBJECTID" : "OBJECTID"
+  },
+  "geometryType" : "esriGeometryPoint",
+  "spatialReference" : {
+    "wkid" : 2056
+  },
+  "fields" : [
+    {
+      "name" : "ID_INFRASTRUCTURE",
+      "type" : "esriFieldTypeInteger",
+      "alias" : "No INFRASTRUCTURE"
+    },
+    {
+      "name" : "NO_COMMUNE",
+      "type" : "esriFieldTypeInteger",
+      "alias" : "No COMMUNE"
+    },
+    {
+      "name" : "COMMUNE",
+      "type" : "esriFieldTypeString",
+      "alias" : "COMMUNE",
+      "length" : 50
+    },
+    {
+      "name" : "ADRESSE",
+      "type" : "esriFieldTypeString",
+      "alias" : "ADRESSE",
+      "length" : 50
+    },
+    {
+      "name" : "TYPE",
+      "type" : "esriFieldTypeString",
+      "alias" : "TYPE",
+      "length" : 50
+    },
+    {
+      "name" : "NOM",
+      "type" : "esriFieldTypeString",
+      "alias" : "NOM",
+      "length" : 100
+    },
+    {
+      "name" : "CAPACITE",
+      "type" : "esriFieldTypeString",
+      "alias" : "CAPACITE",
+      "length" : 50
+    },
+    {
+      "name" : "CONTACT",
+      "type" : "esriFieldTypeString",
+      "alias" : "CONTACT",
+      "length" : 100
+    },
+    {
+      "name" : "PROPRIETAIRE",
+      "type" : "esriFieldTypeString",
+      "alias" : "PROPRIETAIRE",
+      "length" : 100
+    },
+    {
+      "name" : "IDPADR",
+      "type" : "esriFieldTypeString",
+      "alias" : "IDPADR",
+      "length" : 12
+    },
+    {
+      "name" : "LIEN_WWW",
+      "type" : "esriFieldTypeString",
+      "alias" : "LIEN_WWW",
+      "length" : 100
+    },
+    {
+      "name" : "REMARQUES",
+      "type" : "esriFieldTypeString",
+      "alias" : "REMARQUES",
+      "length" : 200
+    },
+    {
+      "name" : "OBJECTID",
+      "type" : "esriFieldTypeOID",
+      "alias" : "OBJECTID"
+    }
+  ],
+  "features" : [
+    {
+      "attributes" : {
+        "ID_INFRASTRUCTURE" : 76,
+        "NO_COMMUNE" : 8,
+        "COMMUNE" : "Carouge",
+        "ADRESSE" : "rue Saint-Joseph 47",
+        "TYPE" : "Cinéma",
+        "NOM" : "Cinéma Bio 72",
+        "CAPACITE" : "192 personnes",
+        "CONTACT" : "022.342.08.67",
+        "PROPRIETAIRE" : "Ville de Carouge",
+        "IDPADR" : "930225025728",
+        "LIEN_WWW" : "http:\/\/www.cinema-bio.ch ou www.fondationcinebio.ch",
+        "REMARQUES" : null,
+        "OBJECTID" : 16
+      },
+      "geometry" : {
+        "x" : 2499835.8103,
+        "y" : 1115598.8854999999
+      }
+    },
+    {
+      "attributes" : {
+        "ID_INFRASTRUCTURE" : 436,
+        "NO_COMMUNE" : 21,
+        "COMMUNE" : "Genève-Cité",
+        "ADRESSE" : "boulevard James-FAZY 23",
+        "TYPE" : "Cinéma",
+        "NOM" : "Cinéma Rialto Cornavin",
+        "CAPACITE" : "972 personnes",
+        "CONTACT" : "0900.900.156",
+        "PROPRIETAIRE" : "privé",
+        "IDPADR" : "930225043823",
+        "LIEN_WWW" : "http:\/\/www.geneve-communes.ch",
+        "REMARQUES" : "7 salles",
+        "OBJECTID" : 27
+      },
+      "geometry" : {
+        "x" : 2499927.4191000001,
+        "y" : 1118378.2299000002
+      }
+    },
+    {
+      "attributes" : {
+        "ID_INFRASTRUCTURE" : 825,
+        "NO_COMMUNE" : 21,
+        "COMMUNE" : "Genève-Cité",
+        "ADRESSE" : "rue du Cercle 8",
+        "TYPE" : "Cinéma",
+        "NOM" : "Cinéma Titanium",
+        "CAPACITE" : null,
+        "CONTACT" : "022.734.79.10",
+        "PROPRIETAIRE" : "privé",
+        "IDPADR" : "930225048020",
+        "LIEN_WWW" : "http:\/\/www.geneve-communes.ch",
+        "REMARQUES" : "Anciennement \"Europlex Rialto Servette\", 3 salles",
+        "OBJECTID" : 34
+      },
+      "geometry" : {
+        "x" : 2499732.4176000003,
+        "y" : 1118404.2958
+      }
+    },
+    {
+      "attributes" : {
+        "ID_INFRASTRUCTURE" : 424,
+        "NO_COMMUNE" : 21,
+        "COMMUNE" : "Genève-Cité",
+        "ADRESSE" : "rue du Cendrier 22",
+        "TYPE" : "Cinéma",
+        "NOM" : "Cinéma Broadway",
+        "CAPACITE" : "275 personnes",
+        "CONTACT" : "022.731.15.80",
+        "PROPRIETAIRE" : "privé",
+        "IDPADR" : "930225004762",
+        "LIEN_WWW" : "http:\/\/cine.bluewin.ch\/programme\/theatre\/detail.php?theatre_id=134",
+        "REMARQUES" : null,
+        "OBJECTID" : 46
+      },
+      "geometry" : {
+        "x" : 2500180.8381000003,
+        "y" : 1118154.6148999999
+      }
+    },
+    {
+      "attributes" : {
+        "ID_INFRASTRUCTURE" : 426,
+        "NO_COMMUNE" : 21,
+        "COMMUNE" : "Genève-Cité",
+        "ADRESSE" : "rue de Chantepoulet 23",
+        "TYPE" : "Cinéma",
+        "NOM" : "Cinéma Central",
+        "CAPACITE" : "283 personnes",
+        "CONTACT" : "022.908.04.30 fax 022.731.91.80",
+        "PROPRIETAIRE" : "privé",
+        "IDPADR" : "930225005523",
+        "LIEN_WWW" : "http:\/\/www.geneve-communes.ch",
+        "REMARQUES" : null,
+        "OBJECTID" : 91
+      },
+      "geometry" : {
+        "x" : 2500023.2353999997,
+        "y" : 1118238.0781
+      }
+    },
+    {
+      "attributes" : {
+        "ID_INFRASTRUCTURE" : 162,
+        "NO_COMMUNE" : 24,
+        "COMMUNE" : "Genève-Plainpalais",
+        "ADRESSE" : "place des Volontaires 4",
+        "TYPE" : "Cinéma",
+        "NOM" : "Cinéma Spoutnik",
+        "CAPACITE" : "70 personnes",
+        "CONTACT" : "022.328.09.26",
+        "PROPRIETAIRE" : "Ville de Genève",
+        "IDPADR" : "930225032087",
+        "LIEN_WWW" : "http:\/\/www.usine.ch",
+        "REMARQUES" : null,
+        "OBJECTID" : 107
+      },
+      "geometry" : {
+        "x" : 2499489.9089000002,
+        "y" : 1117784.5514
+      }
+    },
+    {
+      "attributes" : {
+        "ID_INFRASTRUCTURE" : 314,
+        "NO_COMMUNE" : 22,
+        "COMMUNE" : "Genève-Eaux-Vives",
+        "ADRESSE" : "place des Eaux-Vives 3",
+        "TYPE" : "Cinéma",
+        "NOM" : "Cinéma City",
+        "CAPACITE" : "210 personnes",
+        "CONTACT" : "022.736.89.20",
+        "PROPRIETAIRE" : "privé",
+        "IDPADR" : "930225009704",
+        "LIEN_WWW" : "http:\/\/cine.bluewin.ch\/programme\/theatre\/detail.php?theatre_id=119",
+        "REMARQUES" : null,
+        "OBJECTID" : 109
+      },
+      "geometry" : {
+        "x" : 2501048.0498000002,
+        "y" : 1117566.1614999999
+      }
+    },
+    {
+      "attributes" : {
+        "ID_INFRASTRUCTURE" : 697,
+        "NO_COMMUNE" : 12,
+        "COMMUNE" : "Chêne-Bougeries",
+        "ADRESSE" : "rue de Chêne-Bougeries 40",
+        "TYPE" : "Cinéma",
+        "NOM" : "Cinéma Forum",
+        "CAPACITE" : "250 personnes",
+        "CONTACT" : null,
+        "PROPRIETAIRE" : "privé",
+        "IDPADR" : "930225006302",
+        "LIEN_WWW" : "http:\/\/geneve.cinemas.ch",
+        "REMARQUES" : null,
+        "OBJECTID" : 145
+      },
+      "geometry" : {
+        "x" : 2503729.1355999997,
+        "y" : 1116793.7607
+      }
+    },
+    {
+      "attributes" : {
+        "ID_INFRASTRUCTURE" : 315,
+        "NO_COMMUNE" : 22,
+        "COMMUNE" : "Genève-Eaux-Vives",
+        "ADRESSE" : "rue des Eaux-Vives 23",
+        "TYPE" : "Cinéma",
+        "NOM" : "Cinéma Scala",
+        "CAPACITE" : "218 personnes",
+        "CONTACT" : "022.736.04.22",
+        "PROPRIETAIRE" : "privé",
+        "IDPADR" : "930225009729",
+        "LIEN_WWW" : "http:\/\/cine.bluewin.ch\/programme\/theatre\/detail.php?theatre_id=120",
+        "REMARQUES" : "3 salles",
+        "OBJECTID" : 204
+      },
+      "geometry" : {
+        "x" : 2501168.2077000001,
+        "y" : 1117762.9878
+      }
+    },
+    {
+      "attributes" : {
+        "ID_INFRASTRUCTURE" : 339,
+        "NO_COMMUNE" : 21,
+        "COMMUNE" : "Genève-Cité",
+        "ADRESSE" : "rue de la Confédération 8",
+        "TYPE" : "Cinéma",
+        "NOM" : "Cinéma Rex",
+        "CAPACITE" : "889 personnes",
+        "CONTACT" : "0900.900.156",
+        "PROPRIETAIRE" : "privé",
+        "IDPADR" : "930225007635",
+        "LIEN_WWW" : "http:\/\/www.europlexcinemas.ch\/",
+        "REMARQUES" : "3 salles",
+        "OBJECTID" : 229
+      },
+      "geometry" : {
+        "x" : 2500130.0892000003,
+        "y" : 1117728.0726000001
+      }
+    },
+    {
+      "attributes" : {
+        "ID_INFRASTRUCTURE" : 413,
+        "NO_COMMUNE" : 23,
+        "COMMUNE" : "Genève-Petit-Saconnex",
+        "ADRESSE" : "rue de la Servette 78",
+        "TYPE" : "Cinéma",
+        "NOM" : "Cinéma Nord-Sud",
+        "CAPACITE" : "310 personnes",
+        "CONTACT" : "022.733.19.00 fax 022.733.19.02",
+        "PROPRIETAIRE" : "privé",
+        "IDPADR" : "930225026991",
+        "LIEN_WWW" : "http:\/\/www.geneve-communes.ch",
+        "REMARQUES" : null,
+        "OBJECTID" : 246
+      },
+      "geometry" : {
+        "x" : 2499209.8566000001,
+        "y" : 1118727.9393
+      }
+    }
+  ]
+}
