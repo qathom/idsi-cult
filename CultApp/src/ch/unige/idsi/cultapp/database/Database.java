@@ -48,16 +48,19 @@ public class Database {
 		if (c.moveToFirst()) {
 			do {
 				
-				long uid = (long) c.getInt(1);
+				int uid = c.getInt(1);
 				String name = c.getString(2);
 				String contact = c.getString(3);
-				String town = c.getString(3);
-				String address = c.getString(3);
-				String url = c.getString(3);
-				Infrastructure infrastructure = Infrastructure.valueOf(c.getString(4));
-
+				String town = c.getString(4);
+				String address = c.getString(5);
+				String url = c.getString(6);
+				Infrastructure infrastructure = Infrastructure.valueOf(c.getString(7));
+				
+				
+				boolean checked = (c.getInt(10) != 0);
+				
 				places.add(new Place(uid, name, contact, town,
-						address, url, infrastructure, 0, 0));
+						address, url, infrastructure, 0, 0, checked));
 			} while (c.moveToNext());
 		}
 		c.close();
@@ -65,20 +68,18 @@ public class Database {
 		return places;
 	}
 	
-	public void addFavorite(long uid, String name) {
+	public void setFavorite(int uid, boolean isFavorite) {
 		
 		this.openw();
 
 		ContentValues values = new ContentValues();
 
 		values.put(dbHelper.COL_UID, uid);
-		values.put(dbHelper.COL_NAME, name);
-
-		bdd.insert(dbHelper.TABLE_PLACES, null, values);
-	}
-	
-	public void deleteFavorite(long uid) {
-//		bdd.delete(table, whereClause, whereArgs);
+		values.put(dbHelper.COL_IS_FAVORITE, isFavorite);
+		
+		String where = dbHelper.COL_UID + "=" + uid;
+		
+		bdd.update(dbHelper.TABLE_PLACES, values, where, null);
 	}
 
 	public void insertPlace(Place place) {
@@ -97,33 +98,12 @@ public class Database {
 				.toString());
 		values.put(dbHelper.COL_LATITUDE, place.getLatitude());
 		values.put(dbHelper.COL_LONGITUDE, place.getLongitude());
+		
+		values.put(dbHelper.COL_IS_FAVORITE, 0);
 
 		bdd.insert(dbHelper.TABLE_PLACES, null, values);
 
 		// this.close();
-	}
-
-	public int getUid(long uid) {
-
-		int id = -1;
-
-		try {
-
-			Cursor c = null;
-
-			c = bdd.rawQuery("SELECT " + dbHelper.COL_UID + " FROM "
-					+ dbHelper.TABLE_PLACES + " WHERE " + dbHelper.COL_UID
-					+ "=" + uid, null);
-
-			if (c != null && c.moveToFirst()) {
-				id = c.getInt(c.getColumnIndexOrThrow(dbHelper.COL_UID));
-				c.close();
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return id;
 	}
 
 	public void updateLivre(Place place) {

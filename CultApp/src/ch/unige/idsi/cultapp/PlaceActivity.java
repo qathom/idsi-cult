@@ -1,5 +1,6 @@
 package ch.unige.idsi.cultapp;
 
+import ch.unige.idsi.cultapp.util.Constants;
 import ch.unige.idsi.cultapp.util.ContextLocation;
 import ch.unige.idsi.cultapp.util.OnLocationListener;
 
@@ -13,6 +14,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -31,7 +33,12 @@ public class PlaceActivity extends Activity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_place);
-
+		
+		Intent intent = getIntent();
+		
+		int id = intent.getIntExtra(Constants.INTENT_OBJECT_ID, 0);
+		String name = intent.getStringExtra(Constants.INTENT_OBJECT_NAME);
+		
 		// Set up the action bar to show a home button.
 		final ActionBar actionBar = getActionBar();
 		actionBar.setDisplayShowTitleEnabled(true);
@@ -39,7 +46,13 @@ public class PlaceActivity extends Activity implements
 		actionBar.setDisplayShowHomeEnabled(false);
 		actionBar.setDisplayUseLogoEnabled(false);
 		
-		actionBar.setTitle("Musee de l'histoire du OMG lol");
+		actionBar.setTitle(name);
+	}
+	
+	
+    @Override
+    public void onStart() {
+        super.onStart();
 
 		try {
 			initilizeMap();
@@ -47,7 +60,7 @@ public class PlaceActivity extends Activity implements
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
+    }
 	
 	@Override
 	public boolean onMenuItemSelected(int featureId, MenuItem item) {

@@ -45,10 +45,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".FavoritesActivity"
-            android:label="@string/action_favorites" >
-        </activity>
-        <activity
             android:name=".PlaceActivity"
             android:label="@string/action_favorites" >
         </activity>

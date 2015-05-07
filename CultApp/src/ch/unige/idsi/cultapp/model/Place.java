@@ -8,9 +8,7 @@ import org.json.JSONObject;
 
 public class Place {
 
-	protected String dbPath = "store/cinemas.json";
-
-	private long id;
+	private int id;
 	private String name;
 	private String contact;
 	private String town;
@@ -20,13 +18,15 @@ public class Place {
 	private double latitude;
 	private double longitude;
 	private List<Recommendation> recommendations;
+	
+	private boolean checked = false;
 
 	public enum Infrastructure {
 		MUSEUM, CINEMA
 	}
 
-	public Place(long id, String name, String contact, String town, String address, String url,
-			Infrastructure infrastructure, long latitude, long longitude) {
+	public Place(int id, String name, String contact, String town, String address, String url,
+			Infrastructure infrastructure, double latitude, double longitude) {
 		this.id = id;
 		this.name = name;
 		this.setContact(contact);
@@ -38,8 +38,22 @@ public class Place {
 		this.setLongitude(longitude);
 	}
 	
-	public Place(long id, String name, String contact, String town, String address, String url,
-			Infrastructure infrastructure, long latitude, long longitude, List<Recommendation> recommendations) {
+	public Place(int id, String name, String contact, String town, String address, String url,
+			Infrastructure infrastructure, double latitude, double longitude, boolean isChecked) {
+		this.id = id;
+		this.name = name;
+		this.setContact(contact);
+		this.town = town;
+		this.address = address;
+		this.url = url;
+		this.infrastructure = infrastructure;
+		this.setLatitude(latitude);
+		this.setLongitude(longitude);
+		this.setChecked(isChecked);
+	}
+	
+	public Place(int id, String name, String contact, String town, String address, String url,
+			Infrastructure infrastructure, double latitude, double longitude, List<Recommendation> recommendations) {
 		this.id = id;
 		this.name = name;
 		this.setContact(contact);
@@ -52,7 +66,7 @@ public class Place {
 		this.recommendations = recommendations;
 	}
 
-	public long getId() {
+	public int getId() {
 		return this.id;
 	}
 
@@ -128,6 +142,14 @@ public class Place {
 
 	public void setContact(String contact) {
 		this.contact = contact;
+	}
+
+	public boolean isChecked() {
+		return checked;
+	}
+
+	public void setChecked(boolean checked) {
+		this.checked = checked;
 	}
 
 }
