@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="background">#ffffff</color>
+    <color name="actionbar_background">#00695C</color>
+    <color name="line_separator">#B2DFDB</color>
+</resources>
