@@ -1,5 +1,7 @@
 package ch.unige.idsi.cultweb.model;
 
+import java.io.IOException;
+import java.io.StringWriter;
 import java.util.List;
 
 import org.json.simple.JSONArray;
@@ -25,8 +27,9 @@ public class Place {
 		MUSEUM, CINEMA
 	}
 
-	public Place(long id, String name, String contact, String town, String address, String url,
-			Infrastructure infrastructure, long latitude, long longitude) {
+	public Place(long id, String name, String contact, String town,
+			String address, String url, Infrastructure infrastructure,
+			long latitude, long longitude) {
 		this.id = id;
 		this.name = name;
 		this.setContact(contact);
@@ -37,9 +40,10 @@ public class Place {
 		this.setLatitude(latitude);
 		this.setLongitude(longitude);
 	}
-	
-	public Place(long id, String name, String contact, String town, String address, String url,
-			Infrastructure infrastructure, long latitude, long longitude, List<Recommendation> recommendations) {
+
+	public Place(long id, String name, String contact, String town,
+			String address, String url, Infrastructure infrastructure,
+			long latitude, long longitude, List<Recommendation> recommendations) {
 		this.id = id;
 		this.name = name;
 		this.setContact(contact);
@@ -76,7 +80,6 @@ public class Place {
 		return this.infrastructure;
 	}
 
-
 	public List<Recommendation> getRecommendations() {
 		return recommendations;
 	}
@@ -100,9 +103,9 @@ public class Place {
 	public void setLongitude(double longitude) {
 		this.longitude = longitude;
 	}
-	
-	public JSONObject toJSON() {
-		
+
+	public JSONObject toJSON() throws IOException {
+
 		JSONObject json = new JSONObject();
 		json.put("id", this.id);
 		json.put("name", this.name);
@@ -114,11 +117,14 @@ public class Place {
 		json.put("latitude", this.latitude);
 		json.put("longitude", this.longitude);
 		
-		String jsonText = JSONValue.toJSONString(this.recommendations);
-		JSONArray arr = (JSONArray) JSONValue.parse(jsonText);
+		JSONArray jsonRecommendations = new JSONArray();
 		
-		json.put("recommendations", arr);
-		
+		for(Recommendation r : this.recommendations) {
+			jsonRecommendations.add(r.toJSON());
+		}
+
+		json.put("recommendations", jsonRecommendations);
+
 		return json;
 	}
 

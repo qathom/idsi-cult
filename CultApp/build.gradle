@@ -1,38 +1,19 @@
-apply plugin: 'com.android.application'
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
 
-android {
-    compileSdkVersion 22
-    buildToolsVersion "22.0.1"
-
-    defaultConfig {
-        applicationId "com.exam.gradleexamples"
-        minSdkVersion 19
-        targetSdkVersion 22
-        versionCode 1
-        versionName "1.0"
+buildscript {
+    repositories {
+        jcenter()
     }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:1.2.2'
 
-    productFlavors {
-        paid {
-            applicationId = "com.exam.gradleexamples.paid"
-            versionName = "1.0-paid"
-        }
-
-        free {
-            applicationId = "com.exam.gradleexamples.free"
-            versionName = "1.0-free"
-        }
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
     }
 }
 
-dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:22.0.0'
-    testCompile 'junit:junit:4.+'
-} 
+allprojects {
+    repositories {
+        jcenter()
+    }
+}

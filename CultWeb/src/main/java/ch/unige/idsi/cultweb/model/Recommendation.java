@@ -1,5 +1,7 @@
 package ch.unige.idsi.cultweb.model;
 
+import org.json.simple.JSONObject;
+
 public class Recommendation {
 	
 	private long id;
@@ -36,6 +38,13 @@ public class Recommendation {
 		this.id = id;
 	}
 	
-	
+	public JSONObject toJSON() {
+		
+		JSONObject json = new JSONObject();
+		json.put("name", this.name);
+		json.put("url", this.url);
+		
+		return json;
+	}
 
 }

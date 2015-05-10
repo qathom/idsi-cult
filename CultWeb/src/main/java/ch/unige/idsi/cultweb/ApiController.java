@@ -1,22 +1,17 @@
 package ch.unige.idsi.cultweb;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
 
 import org.json.simple.JSONObject;
-import org.json.simple.JSONValue;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import ch.unige.idsi.cultweb.api.DataAccessObject;
 import ch.unige.idsi.cultweb.api.DataRequest;
 import ch.unige.idsi.cultweb.model.Cinema;
 import ch.unige.idsi.cultweb.model.Museum;
-import ch.unige.idsi.cultweb.model.Place;
 import ch.unige.idsi.cultweb.model.Place.Infrastructure;
 
 @Controller
