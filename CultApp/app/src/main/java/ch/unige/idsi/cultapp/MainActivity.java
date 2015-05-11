@@ -222,6 +222,7 @@ public class MainActivity extends ActionBarActivity implements
             Intent i = new Intent(this.getActivity(), PlaceActivity.class);
             i.putExtra(Constants.INTENT_OBJECT_ID, p.getId());
             i.putExtra(Constants.INTENT_OBJECT_NAME, p.getName());
+            i.putExtra(Constants.INTENT_OBJECT_TYPE, p.getInfrastructure().toString());
 
             this.getActivity().startActivity(i);
         }

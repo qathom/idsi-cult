@@ -1,4 +1,4 @@
-package ch.unige.idsi.cultapp.helper;
+package ch.unige.idsi.cultapp.util;
 
 import android.util.Log;
 import android.view.View;

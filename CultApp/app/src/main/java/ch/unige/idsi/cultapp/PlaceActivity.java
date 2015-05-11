@@ -1,6 +1,7 @@
 package ch.unige.idsi.cultapp;
 
-import ch.unige.idsi.cultapp.helper.Helper;
+import ch.unige.idsi.cultapp.model.Place;
+import ch.unige.idsi.cultapp.util.Helper;
 import ch.unige.idsi.cultapp.listener.OnApiResult;
 import ch.unige.idsi.cultapp.listener.OnLocationListener;
 import ch.unige.idsi.cultapp.model.Recommendation;
@@ -43,6 +44,8 @@ public class PlaceActivity extends ActionBarActivity implements
 	
 	private int id;
 	private String name;
+	private Place.Infrastructure placeType;
+
 	private GoogleMap googleMap;
 	private Location userLocation;
 	
@@ -63,7 +66,8 @@ public class PlaceActivity extends ActionBarActivity implements
 		
 		this.id = intent.getIntExtra(Constants.INTENT_OBJECT_ID, 0);
 		this.name = intent.getStringExtra(Constants.INTENT_OBJECT_NAME);
-		
+		this.placeType = Place.Infrastructure.valueOf(intent.getStringExtra(Constants.INTENT_OBJECT_TYPE));
+
 		this.progress = (ProgressBar) findViewById(R.id.progressDistance);
 		
 		// Set up the action bar to show a home button.
@@ -91,9 +95,13 @@ public class PlaceActivity extends ActionBarActivity implements
     public void onStart() {
         super.onStart();
 
+		// Start the request directly after the window's creation
 		this.doRequest();
     }
 
+	/**
+	 * Cancels the current thread if it exists
+	 */
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
@@ -124,6 +132,28 @@ public class PlaceActivity extends ActionBarActivity implements
 		return super.onOptionsItemSelected(menuItem);
 	}
 
+	/**
+	 * Constructs the Info URL for the current Museum or Cinema ID to make the request to the API
+	 * @return: the URL correctly formatted
+	 */
+	private String constructUrl() {
+
+		// By default, we set the Museum-Info API
+		String url = Constants.INFO_MUSEM_API;
+		if(this.placeType != Place.Infrastructure.MUSEUM) {
+			url = Constants.INFO_CINEMA_API;
+		}
+
+		if(!url.endsWith("/")) {
+			url = url + "/";
+		}
+
+		return url + this.id + "/";
+	}
+
+	/**
+	 * Executes a request to the API and updates the state of the ProgressBar (active)
+	 */
 	private void doRequest() {
 		if(this.apiThread == null) {
 
@@ -134,11 +164,18 @@ public class PlaceActivity extends ActionBarActivity implements
 				}
 			});
 
-			this.apiThread = new ApiThread("http://ge.ch/ags1/rest/services/Culture/MapServer/1/query?text=Mus%C3%A9e&geometry=&geometryType=esriGeometryPoint&inSR=&spatialRel=esriSpatialRelIntersects&relationParam=&objectIds=&where=&time=&returnCountOnly=false&returnIdsOnly=false&returnGeometry=true&maxAllowableOffset=&outSR=&outFields=*&f=pjson", this);
+			this.apiThread = new ApiThread(constructUrl(), this);
 			this.apiThread.execute();
 		}
 	}
 
+	/**
+	 * Creates the GoogleMap canvas on the top of the Activity
+	 * This map is used to set the localisation of the cinema or the museum
+	 *
+	 * @param latitude
+	 * @param longitude
+	 */
 	private void initializeMap(double latitude, double longitude) {
 
 		if (googleMap == null) {
@@ -173,6 +210,11 @@ public class PlaceActivity extends ActionBarActivity implements
 		}
 	}
 
+	/**
+	 * Calculates the distance between the user's position and the cinmea|museum's localisation
+	 * @param userLocation
+	 * @param placeLocation
+	 */
 	private void calculateDistance(Location userLocation, Location placeLocation) {
 
 		float distanceInMeters = userLocation.distanceTo(placeLocation);
@@ -182,6 +224,10 @@ public class PlaceActivity extends ActionBarActivity implements
 				+ " m away");
 	}
 
+	/**
+	 * Called when we retrieve a more precised geolocalisation of the user (see: OnLocationListener)
+	 * @param location
+	 */
 	@Override
 	public void onLocationChanged(Location location) {
 		this.userLocation = location;
@@ -189,6 +235,11 @@ public class PlaceActivity extends ActionBarActivity implements
 		this.calculateDistance(userLocation, location);
 	}
 
+	/**
+	 * Called when the ApiThread object finished a HTTP request to the API
+	 * @param response
+	 * @throws JSONException
+	 */
 	@Override
 	public void processFinish(JSONObject response) throws JSONException {
 
