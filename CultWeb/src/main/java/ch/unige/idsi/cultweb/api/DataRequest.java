@@ -2,11 +2,11 @@ package ch.unige.idsi.cultweb.api;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.Scanner;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -21,7 +21,7 @@ public class DataRequest {
 	
 	private boolean LOCAL_ONLY = true;
 	
-	public JSONArray getMuseums() throws IOException {
+	public JSONObject getMuseums() throws IOException {
 		
 		JSONObject json = new JSONObject();
 		
@@ -31,10 +31,10 @@ public class DataRequest {
 			json = this.sendGet(MUSEUM_API);
 		}
 		
-		return (JSONArray) json.get("features");
+		return json;
 	}
 	
-	public JSONArray getCinemas() throws IOException {
+	public JSONObject getCinemas() throws IOException {
 		
 		JSONObject json = new JSONObject();
 		
@@ -43,7 +43,7 @@ public class DataRequest {
 		} else {
 			json = this.sendGet(CINEMA_API);
 		}
-		return (JSONArray) json.get("features");
+		return json;
 	}
 	
 	public Location getLocation(String address) throws IOException {
@@ -55,8 +55,8 @@ public class DataRequest {
 		JSONObject geometry = (JSONObject) res.get("geometry");
 		JSONObject location = (JSONObject) geometry.get("location");
 
-		double lat = (double) location.get("lat");
-		double lng = (double) location.get("lng");
+		double lat = (Double) location.get("lat");
+		double lng = (Double) location.get("lng");
 
 		return new Location(lat, lng);
 	}
@@ -94,26 +94,27 @@ public class DataRequest {
 	 * By mkyong: http://www.mkyong.com/java/java-read-a-file-from-resources-folder/
 	 * @param filename
 	 * @return
+	 * @throws IOException 
 	 */
-	private JSONObject readFile(String fileName) {
+	private JSONObject readFile(String fileName) throws IOException {
 
 		StringBuilder result = new StringBuilder("");
 		
 		ClassLoader classLoader = getClass().getClassLoader();
 		File file = new File(classLoader.getResource(fileName).getFile());
-	 
-		try (Scanner scanner = new Scanner(file)) {
-	 
-			while (scanner.hasNextLine()) {
-				String line = scanner.nextLine();
-				result.append(line).append("\n");
-			}
-	 
-			scanner.close();
-	 
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		
+	    BufferedReader br = new BufferedReader(new FileReader(file));
+	    try {
+	        String line = br.readLine();
+
+	        while (line != null) {
+	        	result.append(line);
+	        	result.append(System.lineSeparator());
+	            line = br.readLine();
+	        }
+	    } finally {
+	        br.close();
+	    }
 	 
 		return (JSONObject) JSONValue.parse(result.toString());
 	}

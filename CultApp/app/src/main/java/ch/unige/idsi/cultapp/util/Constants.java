@@ -5,12 +5,13 @@ package ch.unige.idsi.cultapp.util;
  */
 public class Constants {
 
-	public static String BASE_URL = "http://ge.ch/ags1/";
-	public static String MUSEUM_API = BASE_URL + "rest/services/Culture/MapServer/1/query?text=Mus%C3%A9e&geometry=&geometryType=esriGeometryPoint&inSR=&spatialRel=esriSpatialRelIntersects&relationParam=&objectIds=&where=&time=&returnCountOnly=false&returnIdsOnly=false&returnGeometry=true&maxAllowableOffset=&outSR=&outFields=*&f=pjson";
-	public static String CINEMA_API = BASE_URL + "rest/services/Culture/MapServer/1/query?text=Cin%C3%A9ma&geometry=&geometryType=esriGeometryPoint&inSR=&spatialRel=esriSpatialRelIntersects&relationParam=&objectIds=&where=&time=&returnCountOnly=false&returnIdsOnly=false&returnGeometry=true&maxAllowableOffset=&outSR=&outFields=*&f=pjson";
+	public static String LOCAL_PORT = "8585";
+	public static String BASE_URL = "http://192.168.1.148:" + LOCAL_PORT + "/CultWeb/";
+	public static String MUSEUM_API = BASE_URL + "api/museums/";
+	public static String CINEMA_API = BASE_URL + "api/cinemas/";
 
-	public static String INFO_MUSEM_API = BASE_URL + "museum/";
-	public static String INFO_CINEMA_API = BASE_URL + "cinema/";
+	public static String INFO_MUSEM_API = BASE_URL + "api/museum/";
+	public static String INFO_CINEMA_API = BASE_URL + "api/cinema/";
 
 	public static String INTENT_OBJECT_ID = "intent_object_id";
 	public static String INTENT_OBJECT_NAME = "intent_object_name";

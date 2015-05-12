@@ -30,8 +30,9 @@ public class DataAccessObject {
 		if(this.museums.isEmpty()) {
 			
 			DataRequest req = new DataRequest();
-	
-			JSONArray array = req.getMuseums();
+			
+			JSONObject json = req.getMuseums();
+			JSONArray array = (JSONArray) json.get("features");
 			
 			int i = 0;
 			int size = array.size();
@@ -111,7 +112,8 @@ public class DataAccessObject {
 			
 			DataRequest req = new DataRequest();
 	
-			JSONArray array = req.getCinemas();
+			JSONObject json = req.getCinemas();
+			JSONArray array = (JSONArray) json.get("features");
 			
 			int i = 0;
 			int size = array.size();

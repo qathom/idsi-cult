@@ -16,6 +16,7 @@
     <string name="address">Adresse</string>
     <string name="town">Ville</string>
     <string name="recommendations">Recommendations</string>
+    <string name="no_recommendations">Aucune recommendatione</string>
 
     <string name="no_internet_access">Erreur de connexion, veuillez vérifier son état</string>
 

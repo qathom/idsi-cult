@@ -297,8 +297,13 @@ public class PlaceActivity extends ActionBarActivity implements
 					this.gridAdapter.add(name);
 				}
 
-				this.gridAdapter.notifyDataSetChanged();
-				Helper.correctGridSize(this.gridView, 1);
+				if(this.gridData.size() > 0) {
+					this.gridAdapter.notifyDataSetChanged();
+					Helper.correctGridSize(this.gridView, 1);
+				} else {
+					TextView textRecommendations = (TextView) findViewById(R.id.textRecommendations);
+					textRecommendations.setText(getString(R.string.no_recommendations));
+				}
 
 				try {
 					initializeMap(latitude, longitude);
