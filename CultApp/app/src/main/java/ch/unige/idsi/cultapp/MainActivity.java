@@ -286,7 +286,7 @@ public class MainActivity extends ActionBarActivity implements
         }
 
         @Override
-        public void processFinish(JSONObject response) throws JSONException {
+        public void processFinish(JSONObject response) {
 
             this.progressRequest.setVisibility(View.GONE);
 
@@ -294,44 +294,51 @@ public class MainActivity extends ActionBarActivity implements
 
             if (response != null) {
 
-                JSONArray array = (JSONArray) response.get("features");
+                try {
 
-                int i = 0;
-                int length = array.length();
+                    JSONArray array = (JSONArray) response.get("features");
 
-                if (length > 0) {
-                    this.gridAdapter.clear();
+                    int i = 0;
+                    int length = array.length();
+
+                    if (length > 0) {
+                        this.gridAdapter.clear();
+                        this.gridAdapter.notifyDataSetChanged();
+                    } else {
+                        Toast.makeText(this.getActivity(), getString(R.string.no_internet_access), Toast.LENGTH_LONG).show();
+                    }
+
+                    for (; i < length; i++) {
+
+                        JSONObject obj = (JSONObject) array.get(i);
+                        JSONObject attributes = (JSONObject) obj.get("attributes");
+
+                        int id = (int) attributes.get("ID_INFRASTRUCTURE");
+
+                        String name = this.optString(attributes, "NOM");
+                        String contact = this.optString(attributes, "CONTACT");
+                        String town = this.optString(attributes, "COMMUNE");
+                        String address = this.optString(attributes, "ADRESSE");
+                        String url = this.optString(attributes, "LIEN_WWW");
+
+                        Database db = new Database(this.getActivity());
+                        Place place = new Place(id, name, contact, town, address,
+                                url, this.currentType, 0, 0);
+
+                        // If we can insert this place (not exists)
+                        if (db.insertPlace(place)) {
+                            this.gridAdapter.add(place);
+                        } else {
+                            // We retrieve the current place with its state (favorite or not)
+                            this.gridAdapter.add(db.getPlace(id));
+                        }
+                    }
                     this.gridAdapter.notifyDataSetChanged();
-                } else {
+
+                } catch(JSONException e) {
+                    e.printStackTrace();
                     Toast.makeText(this.getActivity(), getString(R.string.no_internet_access), Toast.LENGTH_LONG).show();
                 }
-
-                for (; i < length; i++) {
-
-                    JSONObject obj = (JSONObject) array.get(i);
-                    JSONObject attributes = (JSONObject) obj.get("attributes");
-
-                    int id = (int) attributes.get("ID_INFRASTRUCTURE");
-
-                    String name = this.optString(attributes, "NOM");
-                    String contact = this.optString(attributes, "CONTACT");
-                    String town = this.optString(attributes, "COMMUNE");
-                    String address = this.optString(attributes, "ADRESSE");
-                    String url = this.optString(attributes, "LIEN_WWW");
-
-                    Database db = new Database(this.getActivity());
-                    Place place = new Place(id, name, contact, town, address,
-                            url, this.currentType, 0, 0);
-
-                    // If we can insert this place (not exists)
-                    if(db.insertPlace(place)) {
-                        this.gridAdapter.add(place);
-                    } else {
-                        // We retrieve the current place with its state (favorite or not)
-                        this.gridAdapter.add(db.getPlace(id));
-                    }
-                }
-                this.gridAdapter.notifyDataSetChanged();
 
             } else {
                 Toast.makeText(this.getActivity(), getString(R.string.no_internet_access), Toast.LENGTH_LONG).show();

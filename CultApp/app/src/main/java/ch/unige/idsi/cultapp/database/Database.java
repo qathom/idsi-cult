@@ -163,6 +163,8 @@ public class Database {
 
 	public void updatePlace(Place place) {
 
+		this.openw();
+
 		ContentValues values = new ContentValues();
 
 		values.put(dbHelper.COL_NAME, place.getName());

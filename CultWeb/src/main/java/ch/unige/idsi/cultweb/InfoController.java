@@ -23,10 +23,10 @@ public class InfoController {
 
 	@RequestMapping(value = "/{infrastructure}/{id:[\\d]+}", method = RequestMethod.GET)
 	public String printWelcome(ModelMap model,
-			@PathVariable String infrastructure, @PathVariable String id)
+			@PathVariable String infrastructure, @PathVariable int id)
 			throws IOException {
-
-		Place place = dao.getPlace(Long.valueOf(id), infrastructure);
+		
+		Place place = dao.getPlace(id, infrastructure);
 		
 		if(place != null) {
 			model.addAttribute("museum", place);

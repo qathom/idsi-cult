@@ -9,13 +9,13 @@ public class RecommendationManager {
 	
 	public RecommendationManager() {
 
-		Recommendation r1 = new Recommendation((long) 432, "tg", "http://omg.lol");
+		Recommendation r1 = new Recommendation(432, "tg", "http://omg.lol");
 		this.fullList.add(r1);
 		
-		Recommendation r2 = new Recommendation((long) 432, "tg2", "http://omg2.lol");
+		Recommendation r2 = new Recommendation(432, "tg2", "http://omg2.lol");
 		this.fullList.add(r2);
 		
-		Recommendation r3 = new Recommendation((long) 432, "tg2", "http://omg2.lol");
+		Recommendation r3 = new Recommendation(432, "tg2", "http://omg2.lol");
 		this.fullList.add(r3);
 	}
 	
@@ -31,6 +31,5 @@ public class RecommendationManager {
 		
 		return list;
 	}
-	
 	
 }

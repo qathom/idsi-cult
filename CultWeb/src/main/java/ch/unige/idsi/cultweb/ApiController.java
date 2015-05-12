@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import org.json.simple.JSONObject;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -19,14 +20,14 @@ public class ApiController {
 	
 	private DataAccessObject dao;
 	
-	public ApiController() throws IOException {
+	public ApiController() throws IOException  {
 		dao = new DataAccessObject();
 	}
 	
 	@RequestMapping("/api")
-	public ModelAndView getRoot() throws IOException {
+	public ModelAndView getRoot() {
 		
-		String msg = "<h2>Welcome to the CultWeb API</h2>";
+		String msg = "<h2>Welcome to the CultProject API</h2>";
 		msg += "<pre><code>";
 		msg += "[GET]	<a href=\"museums/\">/museums/</a>	=> get all the museums";
 		msg += "\n";
@@ -50,7 +51,7 @@ public class ApiController {
 	public ModelAndView getMuseums() throws IOException {
 		DataRequest req = new DataRequest();
 		String response = req.getMuseums().toString();
-		return new ModelAndView("api", "response", response);
+		return new ModelAndView("apijson", "response", response);
 	}
 
 	/**
@@ -63,40 +64,40 @@ public class ApiController {
 	public ModelAndView getCinemas() throws IOException {
 		DataRequest req = new DataRequest();
 		String response = req.getCinemas().toString();
-		return new ModelAndView("api", "response", response);
+		return new ModelAndView("apijson", "response", response);
 	}
 
 	@RequestMapping(value = "/api/museum/{id:[\\d]+}")
-	public ModelAndView getMuseumInfo(@PathVariable String id)
+	public ModelAndView getMuseumInfo(@PathVariable int id)
 			throws IOException {
 
-		Museum museum = (Museum) dao.getPlace(Long.valueOf(id), Infrastructure.MUSEUM.toString());
+		Museum museum = (Museum) dao.getPlace(id, Infrastructure.MUSEUM.toString());
 		
 		if(museum != null) {
 			
 			JSONObject res = museum.toJSON();
 			res.put("status", "success");
 
-			return new ModelAndView("api", "response", res);
+			return new ModelAndView("apijson", "response", res);
 		} else {
-			return new ModelAndView("api", "response", this.generateError().toString());
+			return new ModelAndView("apijson", "response", this.generateError().toString());
 		}
 	}
 
 	@RequestMapping(value = "/api/cinema/{id:[\\d]+}")
-	public ModelAndView getCinemaInfo(@PathVariable String id)
+	public ModelAndView getCinemaInfo(@PathVariable int id)
 			throws IOException {
 		
-		Cinema cinema = (Cinema) dao.getPlace(Long.valueOf(id), Infrastructure.CINEMA.toString());
+		Cinema cinema = (Cinema) dao.getPlace(id, Infrastructure.CINEMA.toString());
 		
 		if(cinema != null) {
 			
 			JSONObject res = cinema.toJSON();
 			res.put("status", "success");
 			
-			return new ModelAndView("api", "response", res);
+			return new ModelAndView("apijson", "response", res);
 		} else {
-			return new ModelAndView("api", "response", this.generateError().toString());
+			return new ModelAndView("apijson", "response", this.generateError().toString());
 		}
 	}
 	

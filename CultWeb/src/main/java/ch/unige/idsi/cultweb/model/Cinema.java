@@ -4,12 +4,11 @@ import java.util.List;
 
 public class Cinema extends Place {
 	
-	public Cinema(long id, String name, String contact, String town, String address, String url, long latitude, long longitude) {
+	public Cinema(int id, String name, String contact, String town, String address, String url, double latitude, double longitude) {
 		super(id, name, contact, town, address, url, Infrastructure.CINEMA, latitude, longitude);
 	}
 	
-	
-	public Cinema(long id, String name, String contact, String town, String address, String url, long latitude, long longitude, List<Recommendation> recommendations) {
+	public Cinema(int id, String name, String contact, String town, String address, String url, double latitude, double longitude, List<Recommendation> recommendations) {
 		super(id, name, contact, town, address, url, Infrastructure.CINEMA, latitude, longitude, recommendations);
 	}
 }

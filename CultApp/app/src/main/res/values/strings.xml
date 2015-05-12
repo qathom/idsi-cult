@@ -18,6 +18,6 @@
     <string name="recommendations">Recommendations</string>
     <string name="no_recommendations">No recommendations</string>
 
-    <string name="no_internet_access">Connection error, please verify the state</string>
+    <string name="no_internet_access">Connection error</string>
 
 </resources>

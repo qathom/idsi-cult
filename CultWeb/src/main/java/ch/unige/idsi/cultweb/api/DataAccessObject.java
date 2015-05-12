@@ -42,7 +42,7 @@ public class DataAccessObject {
 				JSONObject obj = (JSONObject) array.get(i);
 				JSONObject attributes = (JSONObject) obj.get("attributes");
 	
-				long id = (((Long) attributes.get("ID_INFRASTRUCTURE")).intValue());
+				int id = (int) ((long) attributes.get("ID_INFRASTRUCTURE"));
 				String name = (String) attributes.get("NOM");
 				String contact = (String) attributes.get("CONTACT");
 				String town = (String) attributes.get("COMMUNE");
@@ -58,7 +58,7 @@ public class DataAccessObject {
 		return this.museums;
 	}
 	
-	public Place getPlace(long id, String infrastructure) throws IOException {
+	public Place getPlace(int id, String infrastructure) throws IOException {
 		
 		infrastructure = infrastructure.toLowerCase();
 		
@@ -123,7 +123,7 @@ public class DataAccessObject {
 				JSONObject obj = (JSONObject) array.get(i);
 				JSONObject attributes = (JSONObject) obj.get("attributes");
 	
-				long id = (((Long) attributes.get("ID_INFRASTRUCTURE")).intValue());
+				int id = (int) ((long) attributes.get("ID_INFRASTRUCTURE"));
 				String name = (String) attributes.get("NOM");
 				String contact = (String) attributes.get("CONTACT");
 				String town = (String) attributes.get("COMMUNE");

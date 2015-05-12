@@ -1,5 +1,6 @@
 package ch.unige.idsi.cultapp;
 
+import ch.unige.idsi.cultapp.database.Database;
 import ch.unige.idsi.cultapp.model.Place;
 import ch.unige.idsi.cultapp.util.Helper;
 import ch.unige.idsi.cultapp.listener.OnApiResult;
@@ -96,7 +97,7 @@ public class PlaceActivity extends ActionBarActivity implements
         super.onStart();
 
 		// Start the request directly after the window's creation
-		this.doRequest();
+		this.fetchData();
     }
 
 	/**
@@ -124,7 +125,7 @@ public class PlaceActivity extends ActionBarActivity implements
 
 			case R.id.action_refresh:
 
-				this.doRequest();
+				this.fetchData();
 
 				break;
 
@@ -152,11 +153,23 @@ public class PlaceActivity extends ActionBarActivity implements
 	}
 
 	/**
-	 * Executes a request to the API and updates the state of the ProgressBar (active)
+	 * Executes a request if necessary to the API and updates the state of the ProgressBar (active)
 	 */
-	private void doRequest() {
+	private void fetchData() {
+
 		if(this.apiThread == null) {
 
+			Database db = new Database(this);
+			Place place = db.getPlace(this.id);
+
+			this.setTextViews(place.getContact(), place.getTown(), place.getAddress());
+
+			// If the location is known, set the GoogleMap
+			if(place.getLatitude() != 0 && place.getLongitude() != 0) {
+				this.initializeMap(place.getLatitude(), place.getLongitude());
+			}
+
+			// The execute the request to the API (update the place informations
 			runOnUiThread(new Runnable() {
 				@Override
 				public void run() {
@@ -217,11 +230,34 @@ public class PlaceActivity extends ActionBarActivity implements
 	 */
 	private void calculateDistance(Location userLocation, Location placeLocation) {
 
-		float distanceInMeters = userLocation.distanceTo(placeLocation);
 		TextView textDistance = (TextView) findViewById(R.id.textDistance);
 
-		textDistance.setText("Distance: " + distanceInMeters
-				+ " m away");
+		if(userLocation != null && placeLocation != null) {
+
+			float distanceInMeters = userLocation.distanceTo(placeLocation);
+			textDistance.setText("Distance: " + distanceInMeters
+					+ " m away");
+		} else {
+			textDistance.setText(getString(R.string.distance_title) + ": ?");
+		}
+	}
+
+	/**
+	 * Sets text to TextViews
+	 * @param contact
+	 * @param town
+	 * @param address
+	 */
+	private void setTextViews(String contact, String town, String address) {
+
+		TextView textContact = (TextView) findViewById(R.id.textContact);
+		textContact.setText(contact);
+
+		TextView textCity = (TextView) findViewById(R.id.textCity);
+		textCity.setText(town);
+
+		TextView textAddress = (TextView) findViewById(R.id.textAddress);
+		textAddress.setText(address);
 	}
 
 	/**
@@ -241,7 +277,7 @@ public class PlaceActivity extends ActionBarActivity implements
 	 * @throws JSONException
 	 */
 	@Override
-	public void processFinish(JSONObject response) throws JSONException {
+	public void processFinish(JSONObject response) {
 
 		this.apiThread = null;
 
@@ -254,63 +290,60 @@ public class PlaceActivity extends ActionBarActivity implements
 
 		if (response != null) {
 
-			String status = (String) response.get("status");
+			try {
+				String status = (String) response.get("status");
 
-			if(status.equals("success")) {
+				if (status.equals("success")) {
 
-				LinearLayout layoutInfo = (LinearLayout) findViewById(R.id.layoutInfo);
-				if(layoutInfo.getVisibility() != View.VISIBLE) {
-					layoutInfo.setVisibility(View.VISIBLE);
-				}
+					String placeUrl = (String) response.get("url");
+					String contact = (String) response.get("contact");
+					String town = (String) response.get("town");
+					String address = (String) response.get("address");
+					double latitude = (Double) response.get("latitude");
+					double longitude = (Double) response.get("longitude");
 
-				String contact = (String) response.get("contact");
-				String town = (String) response.get("town");
-				String address = (String) response.get("address");
-				double latitude = (double) response.get("latitude");
-				double longitude = (double) response.get("longitude");
+					// Set text to TextViews
+					this.setTextViews(contact, town, address);
 
-				// Set text to TextViews
-				TextView textContact = (TextView) findViewById(R.id.textContact);
-				textContact.setText(contact);
+					JSONArray recommendations = (JSONArray) response.get("recommendations");
 
-				TextView textCity = (TextView) findViewById(R.id.textCity);
-				textCity.setText(town);
+					int i = 0;
+					int length = recommendations.length();
 
-				TextView textAddress = (TextView) findViewById(R.id.textAddress);
-				textAddress.setText(address);
+					// Clear data in case of refresh
+					this.gridData.clear();
+					this.gridAdapter.clear();
 
-				JSONArray recommendations = (JSONArray) response.get("recommendations");
+					for (; i < length; i++) {
+						JSONObject recommendation = (JSONObject) recommendations.get(i);
+						String name = (String) recommendation.get("name");
+						String url = (String) recommendation.get("url");
 
-				int i = 0;
-				int length = recommendations.length();
+						this.gridData.add(new Recommendation(this.id, name, url));
+						this.gridAdapter.add(name);
+					}
 
-				// Clear data in case of refresh
-				this.gridData.clear();
-				this.gridAdapter.clear();
+					Database db = new Database(this);
+					db.updatePlace(new Place(this.id, name, contact, town, address, placeUrl, this.placeType, latitude, longitude));
 
-				for(;i<length;i++) {
-					JSONObject recommendation = (JSONObject) recommendations.get(i);
-					String name = (String) recommendation.get("name");
-					String url = (String) recommendation.get("url");
+					if (this.gridData.size() > 0) {
+						TextView textRecommendations = (TextView) findViewById(R.id.textRecommendations);
+						textRecommendations.setText(getString(R.string.recommendations));
+						this.gridAdapter.notifyDataSetChanged();
+						Helper.correctGridSize(this.gridView, 1);
+					} else {
+					}
 
-					this.gridData.add(new Recommendation(this.id, name, url));
-					this.gridAdapter.add(name);
-				}
-
-				if(this.gridData.size() > 0) {
-					this.gridAdapter.notifyDataSetChanged();
-					Helper.correctGridSize(this.gridView, 1);
+					try {
+						initializeMap(latitude, longitude);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
 				} else {
-					TextView textRecommendations = (TextView) findViewById(R.id.textRecommendations);
-					textRecommendations.setText(getString(R.string.no_recommendations));
+					Toast.makeText(this, getString(R.string.no_internet_access), Toast.LENGTH_LONG).show();
 				}
-
-				try {
-					initializeMap(latitude, longitude);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			} else {
+			} catch(JSONException e) {
+				e.printStackTrace();
 				Toast.makeText(this, getString(R.string.no_internet_access), Toast.LENGTH_LONG).show();
 			}
 		} else {

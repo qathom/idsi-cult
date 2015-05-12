@@ -8,9 +8,7 @@ import org.json.simple.JSONObject;
 
 public class Place {
 
-	protected String dbPath = "store/cinemas.json";
-
-	private long id;
+	private int id;
 	private String name;
 	private String contact;
 	private String town;
@@ -25,9 +23,9 @@ public class Place {
 		MUSEUM, CINEMA
 	}
 
-	public Place(long id, String name, String contact, String town,
+	public Place(int id, String name, String contact, String town,
 			String address, String url, Infrastructure infrastructure,
-			long latitude, long longitude) {
+			double latitude, double longitude) {
 		this.id = id;
 		this.name = name;
 		this.setContact(contact);
@@ -39,9 +37,9 @@ public class Place {
 		this.setLongitude(longitude);
 	}
 
-	public Place(long id, String name, String contact, String town,
+	public Place(int id, String name, String contact, String town,
 			String address, String url, Infrastructure infrastructure,
-			long latitude, long longitude, List<Recommendation> recommendations) {
+			double latitude, double longitude, List<Recommendation> recommendations) {
 		this.id = id;
 		this.name = name;
 		this.setContact(contact);
@@ -54,7 +52,7 @@ public class Place {
 		this.recommendations = recommendations;
 	}
 
-	public long getId() {
+	public int getId() {
 		return this.id;
 	}
 

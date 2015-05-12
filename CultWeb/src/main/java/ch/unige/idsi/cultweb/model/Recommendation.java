@@ -4,11 +4,11 @@ import org.json.simple.JSONObject;
 
 public class Recommendation {
 	
-	private long id;
+	private int id;
 	private String name;
 	private String url;
 	
-	public Recommendation(long id, String name, String url) {
+	public Recommendation(int id, String name, String url) {
 		this.setId(id);
 		this.name = name;
 		this.setUrl(url);
@@ -34,7 +34,7 @@ public class Recommendation {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 	

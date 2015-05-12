@@ -18,13 +18,12 @@
             android:id="@+id/progressDistance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             android:layout_gravity="center|center_horizontal"/>
 
         <LinearLayout
-            android:id="@+id/layoutInfo"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="gone"
             android:layout_margin="@dimen/activity_margin"
             android:orientation="vertical" >
 
@@ -72,7 +71,7 @@
                 android:id="@+id/textRecommendations"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/recommendations"
+                android:text="@string/no_recommendations"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <GridView
