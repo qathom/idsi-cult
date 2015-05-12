@@ -8,7 +8,7 @@
 
     <string name="action_favorites">Favorites</string>
     <string name="action_az">A-Z</string>
-    <string name="action_refresh">Rafraîchir</string>
+    <string name="action_refresh">Refresh</string>
     
     <string name="distance_title">Distance</string>
 
@@ -17,6 +17,6 @@
     <string name="town">Town</string>
     <string name="recommendations">Recommendations</string>
 
-    <string name="no_internet_access">Erreur de connexion, veuillez vérifier son état</string>
+    <string name="no_internet_access">Connection error, please verify the state</string>
 
 </resources>

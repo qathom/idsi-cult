@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">CultApp</string>
+
+    <string name="title_section_museums">Musées</string>
+    <string name="title_section_cinemas">Cinémas</string>
+
+    <string name="action_favorites">Favoris</string>
+    <string name="action_az">A-Z</string>
+    <string name="action_refresh">Rafraîchir</string>
+
+    <string name="distance_title">Distance</string>
+
+    <string name="contact">Contact</string>
+    <string name="address">Adresse</string>
+    <string name="town">Ville</string>
+    <string name="recommendations">Recommendations</string>
+
+    <string name="no_internet_access">Erreur de connexion, veuillez vérifier son état</string>
+
+</resources>

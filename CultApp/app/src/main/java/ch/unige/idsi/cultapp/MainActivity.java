@@ -46,7 +46,7 @@ public class MainActivity extends ActionBarActivity implements
         SORT_AZ, SORT_FAVORITES
     };
 
-    private SORT currentSort = SORT.SORT_AZ;
+    private SORT currentSort = SORT.SORT_FAVORITES;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,12 +69,12 @@ public class MainActivity extends ActionBarActivity implements
                 this);
     }
 
-    /*
+
     @Override
     public void onRestoreInstanceState(Bundle savedInstanceState) {
         // Restore the previously serialized current dropdown position.
         if (savedInstanceState.containsKey(STATE_SELECTED_NAVIGATION_ITEM)) {
-            getActionBar().setSelectedNavigationItem(
+            getSupportActionBar().setSelectedNavigationItem(
                     savedInstanceState.getInt(STATE_SELECTED_NAVIGATION_ITEM));
         }
     }
@@ -82,9 +82,9 @@ public class MainActivity extends ActionBarActivity implements
     @Override
     public void onSaveInstanceState(Bundle outState) {
         // Serialize the current dropdown position.
-        outState.putInt(STATE_SELECTED_NAVIGATION_ITEM, getActionBar()
+        outState.putInt(STATE_SELECTED_NAVIGATION_ITEM, getSupportActionBar()
                 .getSelectedNavigationIndex());
-    }*/
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -278,7 +278,6 @@ public class MainActivity extends ActionBarActivity implements
         }
 
         private void sortData(SORT sortType) {
-
             if (sortType.equals(SORT.SORT_AZ)) {
                 this.gridAdapter.sortAscendants();
             } else {
@@ -324,8 +323,13 @@ public class MainActivity extends ActionBarActivity implements
                     Place place = new Place(id, name, contact, town, address,
                             url, this.currentType, 0, 0);
 
-                    db.insertPlace(place);
-                    this.gridAdapter.add(place);
+                    // If we can insert this place (not exists)
+                    if(db.insertPlace(place)) {
+                        this.gridAdapter.add(place);
+                    } else {
+                        // We retrieve the current place with its state (favorite or not)
+                        this.gridAdapter.add(db.getPlace(id));
+                    }
                 }
                 this.gridAdapter.notifyDataSetChanged();
 
