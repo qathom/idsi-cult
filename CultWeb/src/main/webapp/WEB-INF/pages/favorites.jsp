@@ -22,7 +22,7 @@
 			<nav>
 			   <div class="nav-wrapper">
 			     <a href="#" class="brand-logo center">Mes Favoris</a>
-			     <ul id="nav-mobile" class="left hide-on-med-and-down">
+			     <ul id="nav-mobile" class="left">
 			       <li><a href="<c:url value="/" />">Retour</a></li>
 			     </ul>
 			   </div>

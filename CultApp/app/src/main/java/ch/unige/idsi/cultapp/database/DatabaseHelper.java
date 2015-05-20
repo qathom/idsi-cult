@@ -5,6 +5,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 
+/**
+ * DataBase Helper to init the SQLiteDatabase Object
+ */
 public class DatabaseHelper extends SQLiteOpenHelper {
 
 	static String TABLE_PLACES = "table_places";
@@ -30,6 +33,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 			+ COL_IS_FAVORITE + " IN (0,1)), UNIQUE(" + COL_UID
 			+ ") ON CONFLICT REPLACE);";
 
+	/**
+	 * @constructor
+	 * @param context
+	 * @param name
+	 * @param factory
+	 * @param version
+	 */
 	public DatabaseHelper(Context context, String name, CursorFactory factory,
 			int version) {
 		super(context, name, factory, version);

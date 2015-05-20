@@ -11,33 +11,62 @@ import android.database.sqlite.SQLiteDatabase;
 
 public class Database {
 
+	/**
+	 * DB version
+	 */
 	private static final int VERSION_BDD = 1;
+
+	/**
+	 * Places table-name
+	 */
 	private static final String NOM_BDD = "places.db";
 
 	private SQLiteDatabase bdd;
 
 	private DatabaseHelper dbHelper;
 
+	/**
+	 * @constructor
+	 * @param context
+	 */
 	public Database(Context context) {
 		dbHelper = new DatabaseHelper(context, NOM_BDD, null, VERSION_BDD);
 	}
 
+	/**
+	 * Opens the database in read mode
+	 */
 	public void openr() {
 		bdd = dbHelper.getReadableDatabase();
 	}
 
+	/**
+	 * Opens the database in write mode
+	 */
 	public void openw() {
 		bdd = dbHelper.getWritableDatabase();
 	}
 
-	public void close() {
+	/**
+	 * Closes the database
+	 */
+	private void close() {
 		bdd.close();
 	}
 
+	/**
+	 * Returns the Database Object
+	 * @return
+	 */
 	public SQLiteDatabase getBDD() {
 		return bdd;
 	}
 
+	/**
+	 * Get all places (museums and cinemas)
+	 * @param type
+	 * @return
+	 */
 	public ArrayList<Place> getAll(Infrastructure type) {
 
 		this.openr();
@@ -64,10 +93,16 @@ public class Database {
 			} while (c.moveToNext());
 		}
 		c.close();
+		this.close();
 
 		return places;
 	}
 
+	/**
+	 * Get a Place Object according to the given UID
+	 * @param uid
+	 * @return
+	 */
 	public Place getPlace(int uid) {
 
 		Place place = null;
@@ -93,10 +128,16 @@ public class Database {
 					address, url, infrastructure, latitude, longitude, checked);
 		}
 		c.close();
+		this.close();
 
 		return place;
 	}
 
+	/**
+	 * Checks if a place is present in the Database
+	 * @param p
+	 * @return
+	 */
 	public boolean exists(Place p) {
 
 		boolean exists = false;
@@ -109,10 +150,16 @@ public class Database {
 			exists = true;
 		}
 		c.close();
+		this.close();
 
 		return exists;
 	}
-	
+
+	/**
+	 * Sets a place as a favorite
+	 * @param uid
+	 * @param isFavorite
+	 */
 	public void setFavorite(int uid, boolean isFavorite) {
 		
 		this.openw();
@@ -125,8 +172,14 @@ public class Database {
 		String where = dbHelper.COL_UID + "=" + uid;
 		
 		bdd.update(dbHelper.TABLE_PLACES, values, where, null);
+		this.close();
 	}
 
+	/**
+	 * Inserts a place in the Database
+	 * @param place
+	 * @return
+	 */
 	public boolean insertPlace(Place place) {
 
 		boolean exists = this.exists(place);
@@ -154,6 +207,8 @@ public class Database {
 			values.put(dbHelper.COL_IS_FAVORITE, 0);
 
 			bdd.insert(dbHelper.TABLE_PLACES, null, values);
+			this.close();
+
 		} else {
 			updatePlace(place);
 		}
@@ -161,6 +216,10 @@ public class Database {
 		return canBeInserted;
 	}
 
+	/**
+	 * Updates a place in the Database
+	 * @param place
+	 */
 	public void updatePlace(Place place) {
 
 		this.openw();
@@ -178,5 +237,6 @@ public class Database {
 		values.put(dbHelper.COL_LONGITUDE, place.getLongitude());
 
 		bdd.update(dbHelper.TABLE_PLACES, values, dbHelper.COL_UID + " = " + place.getId(), null);
+		this.close();
 	}
 }
