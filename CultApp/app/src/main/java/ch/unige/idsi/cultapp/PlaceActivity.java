@@ -38,6 +38,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class PlaceActivity extends ActionBarActivity implements
@@ -234,9 +235,37 @@ public class PlaceActivity extends ActionBarActivity implements
 
 		if(userLocation != null && placeLocation != null) {
 
-			float distanceInMeters = userLocation.distanceTo(placeLocation);
-			textDistance.setText("Distance: " + distanceInMeters
-					+ " m away");
+			System.out.println("userLocation: " + userLocation.getLatitude());
+			System.out.println("userLocation: " + userLocation.getLongitude());
+
+			System.out.println("placeLocation: " + placeLocation.getLatitude());
+			System.out.println("placeLocation: " + placeLocation.getLongitude());
+
+			// Distance given in meters
+			float distance = userLocation.distanceTo(placeLocation);
+			boolean inMeters = true;
+
+			// BUG FIX: Sometimes, the method distanceTo returns 0.0 meters which is impossible.
+			if(distance == 0) {
+				return;
+			}
+
+			if(distance > 999) {
+				inMeters = false;
+				// Convert in kilometers
+				distance = (distance / 1000);
+
+				DecimalFormat df = new DecimalFormat("#.##");
+				distance = Float.valueOf(df.format(distance));
+			}
+
+			String text = "Distance: " + distance
+					+ " m away";
+			if(!inMeters) {
+				text = "Distance: " + distance
+						+ " km away";
+			}
+			textDistance.setText(text);
 		} else {
 			textDistance.setText(getString(R.string.distance_title) + ": ?");
 		}
