@@ -71,7 +71,7 @@ public class ApiController {
 	public ModelAndView getMuseumInfo(@PathVariable int id)
 			throws IOException {
 
-		Museum museum = (Museum) dao.getPlace(id, Infrastructure.MUSEUM.toString());
+		Museum museum = (Museum) dao.getPlace(id, Infrastructure.MUSEUM);
 		
 		if(museum != null) {
 			
@@ -88,7 +88,7 @@ public class ApiController {
 	public ModelAndView getCinemaInfo(@PathVariable int id)
 			throws IOException {
 		
-		Cinema cinema = (Cinema) dao.getPlace(id, Infrastructure.CINEMA.toString());
+		Cinema cinema = (Cinema) dao.getPlace(id, Infrastructure.CINEMA);
 		
 		if(cinema != null) {
 			

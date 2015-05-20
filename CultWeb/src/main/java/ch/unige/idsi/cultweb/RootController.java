@@ -30,7 +30,7 @@ public class RootController {
 	 * @throws IOException
 	 */
 	@RequestMapping(method = RequestMethod.GET)
-	public String printWelcome(ModelMap model) throws IOException {
+	public String renderHome(ModelMap model) throws IOException {
 		model.addAttribute("museums", dao.getMuseums());
 		model.addAttribute("cinemas", dao.getCinemas());
 		

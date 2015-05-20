@@ -58,49 +58,34 @@ public class DataAccessObject {
 		return this.museums;
 	}
 	
-	public Place getPlace(int id, String infrastructure) throws IOException {
-		
-		infrastructure = infrastructure.toLowerCase();
-		
-		Infrastructure infra = null;
-
-		if (infrastructure.equals(Infrastructure.CINEMA.toString()
-				.toLowerCase())) {
-			infra = Infrastructure.CINEMA;
-		} else if (infrastructure.equals(Infrastructure.MUSEUM.toString()
-				.toLowerCase())) {
-			infra = Infrastructure.MUSEUM;
-		}
+	public Place getPlace(int id, Infrastructure infrastructure) throws IOException {
 		
 		Place place = null;
-		
-		if (infra != null) {
-		
-			if(infra.equals(Infrastructure.MUSEUM)) {
-				for(Museum m : this.museums) {
-					if(m.getId() == id) {
-						place = m;
-					}
-				}
-			} else if(infra.equals(Infrastructure.CINEMA)) {
-				for(Cinema c : this.cinemas) {
-					if(c.getId() == id) {
-						place = c;
-					}
+	
+		if(infrastructure.equals(Infrastructure.MUSEUM)) {
+			for(Museum m : this.museums) {
+				if(m.getId() == id) {
+					place = m;
 				}
 			}
+		} else if(infrastructure.equals(Infrastructure.CINEMA)) {
+			for(Cinema c : this.cinemas) {
+				if(c.getId() == id) {
+					place = c;
+				}
+			}
+		}
+		
+		if(place != null) {
+			RecommendationManager rm = new RecommendationManager();
+			List<Recommendation> recommendations = rm.get(id);
+			place.setRecommendations(recommendations);
 			
-			if(place != null) {
-				RecommendationManager rm = new RecommendationManager();
-				List<Recommendation> recommendations = rm.get(id);
-				place.setRecommendations(recommendations);
-				
-				DataRequest r = new DataRequest();
-				Location l = r.getLocation(place.getAddress());
-				
-				place.setLatitude(l.getLatitude());
-				place.setLongitude(l.getLongitude());
-			}
+			DataRequest r = new DataRequest();
+			Location l = r.getLocation(place.getAddress());
+			
+			place.setLatitude(l.getLatitude());
+			place.setLongitude(l.getLongitude());
 		}
 		
 		return place;

@@ -19,7 +19,7 @@ public class RecommendationManager {
 		this.fullList.add(r3);
 	}
 	
-	public List<Recommendation> get(long id) {
+	public List<Recommendation> get(int id) {
 
 		List<Recommendation> list = new ArrayList<Recommendation>();
 		

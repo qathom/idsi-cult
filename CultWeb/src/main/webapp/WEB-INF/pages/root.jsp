@@ -44,7 +44,7 @@
 		      <img src="<c:url value="/assets/img/device.jpg" />"> <!-- random image -->
 		      <div class="caption right-align">
 		        <h3>CultWeb sur votre mobile</h3>
-		        <h5 class="light grey-text text-lighten-3">Téléchargez l'application mobile CultWeb.</h5>
+		        <h5 class="light grey-text text-lighten-3">Téléchargez l'application mobile CultApp.</h5>
 		      </div>
 		     </li>
 		  </ul>
