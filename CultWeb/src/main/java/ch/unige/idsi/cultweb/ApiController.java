@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import org.json.simple.JSONObject;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -66,7 +65,13 @@ public class ApiController {
 		String response = req.getCinemas().toString();
 		return new ModelAndView("apijson", "response", response);
 	}
-
+	
+	/**
+	 * Fetches the museum informations
+	 * @param id
+	 * @return
+	 * @throws IOException
+	 */
 	@RequestMapping(value = "/api/museum/{id:[\\d]+}")
 	public ModelAndView getMuseumInfo(@PathVariable int id)
 			throws IOException {
@@ -83,7 +88,13 @@ public class ApiController {
 			return new ModelAndView("apijson", "response", this.generateError().toString());
 		}
 	}
-
+	
+	/**
+	 * Fetches the cinema informations
+	 * @param id
+	 * @return
+	 * @throws IOException
+	 */
 	@RequestMapping(value = "/api/cinema/{id:[\\d]+}")
 	public ModelAndView getCinemaInfo(@PathVariable int id)
 			throws IOException {
@@ -101,6 +112,10 @@ public class ApiController {
 		}
 	}
 	
+	/**
+	 * Generates an error
+	 * @return: JSON error
+	 */
 	private JSONObject generateError() {
 		JSONObject res = new JSONObject();
 		res.put("message", "INVALID_OBJECT_ID");

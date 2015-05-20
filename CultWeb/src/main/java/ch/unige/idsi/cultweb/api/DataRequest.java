@@ -14,6 +14,10 @@ import org.json.simple.JSONValue;
 
 import ch.unige.idsi.cultweb.model.Location;
 
+/**
+ * The role of DataRequest is to execute HTTP requests or read data stored in our cache filesystem
+ * If LOCAL_ONLY is true, then it reads local data, otherwise it makes a request to the GE - API
+ */
 public class DataRequest {
 
 	private String MUSEUM_API = "http://ge.ch/ags1/rest/services/Culture/MapServer/1/query?text=Mus%C3%A9e&geometry=&geometryType=esriGeometryPoint&inSR=&spatialRel=esriSpatialRelIntersects&relationParam=&objectIds=&where=&time=&returnCountOnly=false&returnIdsOnly=false&returnGeometry=true&maxAllowableOffset=&outSR=&outFields=*&f=pjson";
@@ -21,6 +25,11 @@ public class DataRequest {
 	
 	private boolean LOCAL_ONLY = true;
 	
+	/**
+	 * Retrieves museums
+	 * @return
+	 * @throws IOException
+	 */
 	public JSONObject getMuseums() throws IOException {
 		
 		JSONObject json = new JSONObject();
@@ -34,6 +43,11 @@ public class DataRequest {
 		return json;
 	}
 	
+	/**
+	 * Retrieves cinemas
+	 * @return
+	 * @throws IOException
+	 */
 	public JSONObject getCinemas() throws IOException {
 		
 		JSONObject json = new JSONObject();
@@ -46,6 +60,12 @@ public class DataRequest {
 		return json;
 	}
 	
+	/**
+	 * Retrieves the Geo Data from the Google Maps s' API
+	 * @param address
+	 * @return
+	 * @throws IOException
+	 */
 	public Location getLocation(String address) throws IOException {
 		
 		JSONObject json = this.sendGet("http://maps.google.com/maps/api/geocode/json?address="+address+" Genève, Switzerland&sensor=false");
@@ -61,6 +81,12 @@ public class DataRequest {
 		return new Location(lat, lng);
 	}
 	
+	/**
+	 * Execute a GET HTTP Request
+	 * @param url
+	 * @return
+	 * @throws IOException
+	 */
 	private JSONObject sendGet(String url) throws IOException {
 		
 		url = url.replace(" ", "%20");

@@ -1,5 +1,9 @@
 package ch.unige.idsi.cultweb.model;
 
+/**
+ * Location is a tiny Object to manage geo data
+ *
+ */
 public class Location {
 	
 	private double latitude;

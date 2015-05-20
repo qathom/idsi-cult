@@ -306,7 +306,12 @@ public class RecommendationManager {
 				"https://www.facebook.com/MuseeBarbierMueller");
 		this.fullList.add(r50);
 	}
-
+	
+	/**
+	 * Retrieves recommendations of a given ID-museum/ID-cinema
+	 * @param id
+	 * @return
+	 */
 	public List<Recommendation> get(int id) {
 
 		List<Recommendation> list = new ArrayList<Recommendation>();

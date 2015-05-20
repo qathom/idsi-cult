@@ -15,6 +15,11 @@ import ch.unige.idsi.cultweb.model.RecommendationManager;
 import ch.unige.idsi.cultweb.model.Place.Infrastructure;
 import ch.unige.idsi.cultweb.model.Recommendation;
 
+/**
+ * 
+ * The role of DataAccessObject is to retrieve our model Data like a Place (Museum, Cinema) object
+ * or the list of cinemas/museums
+ */
 public class DataAccessObject {
 
 	private List<Museum> museums = new ArrayList<Museum>();
@@ -24,7 +29,12 @@ public class DataAccessObject {
 		this.getMuseums();
 		this.getCinemas();
 	}
-
+	
+	/**
+	 * Retrieves museums
+	 * @return
+	 * @throws IOException
+	 */
 	public List<Museum> getMuseums() throws IOException {
 		
 		if(this.museums.isEmpty()) {
@@ -58,6 +68,50 @@ public class DataAccessObject {
 		return this.museums;
 	}
 	
+	/**
+	 * Retrieves cinemas
+	 * @return
+	 * @throws IOException
+	 */
+	public List<Cinema> getCinemas() throws IOException {
+
+		if(this.cinemas.isEmpty()) {
+			
+			DataRequest req = new DataRequest();
+	
+			JSONObject json = req.getCinemas();
+			JSONArray array = (JSONArray) json.get("features");
+			
+			int i = 0;
+			int size = array.size();
+			
+			for (; i < size; i++) {
+	
+				JSONObject obj = (JSONObject) array.get(i);
+				JSONObject attributes = (JSONObject) obj.get("attributes");
+	
+				int id = (int) ((long) attributes.get("ID_INFRASTRUCTURE"));
+				String name = (String) attributes.get("NOM");
+				String contact = (String) attributes.get("CONTACT");
+				String town = (String) attributes.get("COMMUNE");
+				String address = (String) attributes.get("ADRESSE");
+				String url = (String) attributes.get("LIEN_WWW");
+	
+				Cinema c = new Cinema(id, name, contact, town, address, url, 0, 0);
+	
+				this.cinemas.add(c);
+			}
+		}
+		return cinemas;
+	}
+	
+	/**
+	 * Retrieves a specific place
+	 * @param id
+	 * @param infrastructure
+	 * @return
+	 * @throws IOException
+	 */
 	public Place getPlace(int id, Infrastructure infrastructure) throws IOException {
 		
 		Place place = null;
@@ -89,38 +143,6 @@ public class DataAccessObject {
 		}
 		
 		return place;
-	}
-	
-	public List<Cinema> getCinemas() throws IOException {
-
-		if(this.cinemas.isEmpty()) {
-			
-			DataRequest req = new DataRequest();
-	
-			JSONObject json = req.getCinemas();
-			JSONArray array = (JSONArray) json.get("features");
-			
-			int i = 0;
-			int size = array.size();
-			
-			for (; i < size; i++) {
-	
-				JSONObject obj = (JSONObject) array.get(i);
-				JSONObject attributes = (JSONObject) obj.get("attributes");
-	
-				int id = (int) ((long) attributes.get("ID_INFRASTRUCTURE"));
-				String name = (String) attributes.get("NOM");
-				String contact = (String) attributes.get("CONTACT");
-				String town = (String) attributes.get("COMMUNE");
-				String address = (String) attributes.get("ADRESSE");
-				String url = (String) attributes.get("LIEN_WWW");
-	
-				Cinema c = new Cinema(id, name, contact, town, address, url, 0, 0);
-	
-				this.cinemas.add(c);
-			}
-		}
-		return cinemas;
 	}
 
 }

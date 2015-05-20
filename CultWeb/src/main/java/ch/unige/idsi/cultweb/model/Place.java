@@ -6,6 +6,10 @@ import java.util.List;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+/**
+ * The Place is the parent Object of museums/cinemas
+ *
+ */
 public class Place {
 
 	private int id;
