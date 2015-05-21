@@ -6,7 +6,7 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		
-		<title>CultWeb | ${name}</title>
+		<title>CultWeb | ${museum.name}</title>
 
 		<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
 		<meta name="description" content="">
