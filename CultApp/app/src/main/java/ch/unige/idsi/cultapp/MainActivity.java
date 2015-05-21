@@ -157,7 +157,7 @@ public class MainActivity extends ActionBarActivity implements
     public static class PlaceholderFragment extends Fragment implements
             OnItemClickListener, OnApiResult, OnClickListener {
 
-        ArrayList<Place> gridData = new ArrayList<Place>();
+        private ArrayList<Place> gridData = new ArrayList<Place>();
 
         private Infrastructure currentType;
         private GridAdapter gridAdapter;
@@ -169,7 +169,7 @@ public class MainActivity extends ActionBarActivity implements
         /**
          * Returns a new instance of this fragment for the given section number.
          */
-        public static PlaceholderFragment newInstance(int sectionNumber) {
+        public static PlaceholderFragment newInstance() {
             PlaceholderFragment fragment = new PlaceholderFragment();
             Bundle args = new Bundle();
             fragment.setArguments(args);

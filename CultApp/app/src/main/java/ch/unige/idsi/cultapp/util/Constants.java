@@ -5,8 +5,8 @@ package ch.unige.idsi.cultapp.util;
  */
 public class Constants {
 
-	public static String LOCAL_PORT = "8585";
-	public static String BASE_URL = "http://192.168.1.148:" + LOCAL_PORT + "/CultWeb/";
+	public static String LOCAL_PORT = "9090";
+	public static String BASE_URL = "http://10.220.189.219:" + LOCAL_PORT + "/CultWeb/";
 	public static String MUSEUM_API = BASE_URL + "api/museums/";
 	public static String CINEMA_API = BASE_URL + "api/cinemas/";
 
